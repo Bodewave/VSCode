@@ -1,0 +1,108 @@
+class Contact:
+    """Represents a sales contact."""
+
+    def __init__(self, name, company, phone, email, notes=""):
+        """Initializes a Contact object.
+
+        Args:
+            name (str): Contact's full name.
+            company (str): Contact's company name.
+            phone (str): Contact's phone number.
+            email (str): Contact's email address.
+            notes (str, optional): Additional notes about the contact. Defaults to "".
+        """
+        self.name = name
+        self.company = company
+        self.phone = phone
+        self.email = email
+        self.notes = notes
+
+    def display_contact(self):
+        """Displays the contact's information."""
+        print(f"Name: {self.name}")
+        print(f"Company: {self.company}")
+        print(f"Phone: {self.phone}")
+        print(f"Email: {self.email}")
+        if self.notes:
+            print(f"Notes: {self.notes}")
+        print("-" * 20)
+
+
+def add_contact(contacts):
+    """Adds a new contact to the list.
+
+    Args:
+        contacts (list): The list of Contact objects.
+    """
+    name = input("Enter contact name: ")
+    company = input("Enter company name: ")
+    phone = input("Enter phone number: ")
+    email = input("Enter email address: ")
+    notes = input("Enter any notes (optional): ")
+
+    new_contact = Contact(name, company, phone, email, notes)
+    contacts.append(new_contact)
+    print(f"Contact '{name}' added successfully!")
+
+
+def search_contact(contacts, search_term):
+    """Searches for contacts whose name or company contains the search term.
+
+    Args:
+        contacts (list): The list of Contact objects.
+        search_term (str): The term to search for.
+    """
+    found = False
+    for contact in contacts:
+        if search_term.lower() in contact.name.lower() or search_term.lower() in contact.company.lower():
+            contact.display_contact()
+            found = True
+
+    if not found:
+        print(f"No contacts found matching '{search_term}'.")
+
+
+def list_all_contacts(contacts):
+    """Lists all contacts in the list.
+
+    Args:
+        contacts (list): The list of Contact objects.
+    """
+    if not contacts:
+        print("No contacts in your list.")
+        return
+
+    print("All Contacts:")
+    for contact in contacts:
+        contact.display_contact()
+
+
+def main():
+    """Main function to manage sales contacts."""
+    contacts = []  # Initialize an empty list to store contacts
+
+    while True:
+        print("\nSales Contact Manager")
+        print("1. Add Contact")
+        print("2. Search Contact")
+        print("3. List All Contacts")
+        print("4. Exit")
+
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == "1":
+            add_contact(contacts)
+        elif choice == "2":
+            search_term = input("Enter search term (name or company): ")
+            search_contact(contacts, search_term)
+        elif choice == "3":
+            list_all_contacts(contacts)
+        elif choice == "4":
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
+
+
+if __name__ == "__main__":
+    main()
